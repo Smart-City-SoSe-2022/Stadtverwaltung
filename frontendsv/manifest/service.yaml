@@ -38,7 +38,7 @@ spec:
       protocol: TCP
       port: 8003
       targetPort: 80
-      nodePort: 30134
+      nodePort: 30135
   selector:
     k8s-app: stadtverwaltung-frontend
   clusterIP: 10.107.77.32
