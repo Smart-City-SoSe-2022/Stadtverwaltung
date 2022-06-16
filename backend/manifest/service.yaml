@@ -34,7 +34,7 @@ spec:
     - name: tcp-9003-5000-8hx9p
       protocol: TCP
       port: 9003
-      targetPort: 5000
+      targetPort: 8080
   selector:
     k8s-app: stadtverwaltung-backend
   clusterIP: 10.109.232.131
