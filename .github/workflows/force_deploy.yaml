@@ -12,9 +12,9 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  REPOSITORY: smart-city-sose-2022/fahrzeugvermietung
-  FRONTEND_NAME: smart-city-sose-2022/fahrzeugvermietung-frontend
-  BACKEND_NAME: smart-city-sose-2022/fahrzeugvermietung-backend
+  REPOSITORY: smart-city-sose-2022/stadtverwaltung
+  FRONTEND_NAME: smart-city-sose-2022/stadtverwaltung-frontend
+  BACKEND_NAME: smart-city-sose-2022/stadtverwaltung-backend
 
 
 jobs:
@@ -61,7 +61,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ./frontend
+          context: ./frontendsv
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ steps.meta.outputs.tags }}
@@ -112,7 +112,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ./backend
+          context: ./backend/backend
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ steps.meta.outputs.tags }}
@@ -166,7 +166,7 @@ jobs:
         with:
           namespace: default
           manifests: |
-            frontend/manifest/deployment.yaml
-            frontend/manifest/service.yaml
+            frontendsv/manifest/deployment.yaml
+            frontendsv/manifest/service.yaml
           images: |
             ${{ env.REGISTRY }}/${{ env.FRONTEND_NAME }}:${{ github.sha }}
