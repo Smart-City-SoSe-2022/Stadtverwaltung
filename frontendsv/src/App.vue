@@ -1,7 +1,8 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">Verein</router-link>
+    <router-link to="/verein">Verein</router-link> |
+    <router-link to="/schule">Schule</router-link>
   </nav>
   <router-view/>
 </template>
@@ -26,5 +27,19 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.btn {
+  display: inline-block;
+  background: black;
+  color:#fff ;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
 }
 </style>
