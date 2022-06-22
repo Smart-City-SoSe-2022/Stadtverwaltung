@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Docker
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -6,6 +6,8 @@ name: Build and Deploy
 # documentation.
 
 on:
+  schedule:
+    - cron: '15 1 * * *'
   push:
     branches: [ main ]
     # Publish semver tags as releases.
@@ -24,6 +26,7 @@ env:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -65,7 +68,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ./frontend
+          context: ./frontendsv
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ steps.meta.outputs.tags }}
@@ -116,7 +119,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ./backend
+          context: ./backend/backend
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ steps.meta.outputs.tags }}
@@ -172,7 +175,9 @@ jobs:
         with:
           namespace: default
           manifests: |
-            frontend/manifest/deployment.yaml
-            frontend/manifest/service.yaml
+            frontendsv/manifest/deployment.yaml
+            frontendsv/manifest/service.yaml
           images: |
             ${{ env.REGISTRY }}/${{ env.FRONTEND_NAME }}:${{ github.sha }}
+
+
