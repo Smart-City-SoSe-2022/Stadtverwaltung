@@ -1,4 +1,4 @@
-name: Docker
+name: Build and Deploy
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -6,15 +6,12 @@ name: Docker
 # documentation.
 
 on:
-  schedule:
-    - cron: '15 1 * * *'
   push:
     branches: [ main ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ main ]
-    types: [ closed ]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -27,7 +24,6 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -69,7 +65,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ./frontendsv
+          context: ./frontend
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ steps.meta.outputs.tags }}
@@ -120,7 +116,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ./backend/backend
+          context: ./backend
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ steps.meta.outputs.tags }}
@@ -131,7 +127,7 @@ jobs:
           
   deploy_backend:
     name: Deploy Backend
-    if: github.event.pull_request.merged == true
+    #if: github.event.pull_request.merged == true
     needs: [ build_backend ]
     runs-on: ubuntu-latest
     steps:
@@ -157,7 +153,7 @@ jobs:
             
   deploy_frontend:
     name: Deploy Frontend
-    if: github.event.pull_request.merged == true
+    #if: github.event.pull_request.merged == true
     needs: [ build ]
     runs-on: ubuntu-latest
     steps:
@@ -176,9 +172,7 @@ jobs:
         with:
           namespace: default
           manifests: |
-            frontendsv/manifest/deployment.yaml
-            frontendsv/manifest/service.yaml
+            frontend/manifest/deployment.yaml
+            frontend/manifest/service.yaml
           images: |
             ${{ env.REGISTRY }}/${{ env.FRONTEND_NAME }}:${{ github.sha }}
-
-
