@@ -23,5 +23,9 @@ public class ClubEntity {
 
     private String clubName;
     private String founder;
+    private int member;
+    private String task;
+    private String financing;
+    private String description;
 
 }
