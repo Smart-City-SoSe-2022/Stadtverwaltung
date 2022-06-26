@@ -170,8 +170,8 @@ jobs:
         with:
           namespace: default
           manifests: |
-            frontend/manifest/deployment.yaml
-            frontend/manifest/service.yaml
+            frontendsv/manifest/deployment.yaml
+            frontendsv/manifest/service.yaml
           images: |
             ${{ env.REGISTRY }}/${{ env.FRONTEND_NAME }}:${{ github.sha }}
 
