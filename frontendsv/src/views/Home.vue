@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Header msg="Welcome to Your Vue.js App"/>
+    <Header/>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import Header from '@/components/Header.vue'
 export default {
   name: 'Home',
   components: {
-    Header
+    Header,
   }
 }
 </script>

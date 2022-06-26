@@ -1,21 +1,29 @@
 package com.example.backend.clubapi;
 
 import com.example.backend.clubapi.request.ClubChangeNameRequest;
+import com.example.backend.jwt.JwtTokenUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 @RestController
-@RequestMapping(path = "api/v1/club")
+@RequestMapping(path = "club")
 @AllArgsConstructor
 public class ClubController {
 
     private ClubService clubService;
+    private JwtTokenUtil jwtTokenUtil;
+
 
     @PostMapping("/create")
-    public boolean clubCreate(@RequestBody ClubEntity clubEntity){
-        System.out.println("POST api/v1/club/create wurde angesprochen");
-
-        return clubService.clubCreate(clubEntity);
+    public boolean clubCreate(@CookieValue(name = "JWT") String jwtID,@RequestBody ClubEntity clubEntity){
+        if(jwtTokenUtil.checkLoggedIn(jwtID)){
+            return clubService.clubCreate(clubEntity);
+        } else
+            return false;
     }
 
     @PutMapping("/change-name")
@@ -33,7 +41,7 @@ public class ClubController {
     }
 
     @GetMapping("/clublist")
-    public boolean clubList(){
+    public List<ClubEntity> clubList(){
         System.out.println("GET api/v1/club/clublist wurde angesprochen");
 
         return clubService.clubList();

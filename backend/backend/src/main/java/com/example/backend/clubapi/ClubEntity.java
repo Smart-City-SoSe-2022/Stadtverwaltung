@@ -21,8 +21,8 @@ public class ClubEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String founderName;
     private String clubName;
-    private String founder;
     private int member;
     private String task;
     private String financing;

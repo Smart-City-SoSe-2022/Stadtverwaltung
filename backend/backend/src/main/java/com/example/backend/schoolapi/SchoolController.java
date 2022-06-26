@@ -1,20 +1,27 @@
 package com.example.backend.schoolapi;
 
+import com.example.backend.jwt.JwtTokenUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 @RestController
-@RequestMapping(path = "api/v1/school")
+@RequestMapping(path = "school")
 @AllArgsConstructor
 public class SchoolController {
 
   private SchoolService schoolService;
+  private JwtTokenUtil jwtTokenUtil;
 
   @PostMapping("/create")
-  public boolean schoolCreate(@RequestBody SchoolEntity schoolEntity){
-    System.out.println("POST api/v1/school/create wurde angesprochen");
-
-    return schoolService.schoolCreate(schoolEntity);
+  public boolean schoolCreate(@CookieValue(name = "JWT") String jwtID , @RequestBody SchoolEntity schoolEntity){
+      if(jwtTokenUtil.checkLoggedIn(jwtID)){
+        return schoolService.schoolCreate(schoolEntity);
+      } else
+          return false;
   }
 
   @DeleteMapping("/delete-school")
@@ -25,11 +32,10 @@ public class SchoolController {
   }
 
   @GetMapping("/schoollist")
-  public boolean schoolList(){
+  public List<SchoolEntity> schoolList(){
     System.out.println("GET api/v1/school/schoollist wurde angesprochen");
 
     return schoolService.schoolList();
   }
-
 
 }

@@ -2,7 +2,7 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/verein">Verein</router-link> |
-    <router-link to="/schule">Schule</router-link>
+    <router-link to="/schule">Schule</router-link> 
   </nav>
   <router-view/>
 </template>

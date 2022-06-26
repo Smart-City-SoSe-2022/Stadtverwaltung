@@ -22,6 +22,8 @@ public class SchoolEntity {
     private Long id;
 
     private String schoolName;
-
+    private String founderName;
+    private int teacher;
+    private int classrooms;
 
 }

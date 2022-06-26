@@ -12,4 +12,7 @@ import lombok.ToString;
 public class SchoolCreationRequest {
 
     private final String schoolName;
+    private final String founderName;
+    private final int teacher;
+    private final int classrooms;
 }
