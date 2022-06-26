@@ -20,7 +20,6 @@ public class ClubService {
      * @return
      */
     public boolean clubCreate(ClubEntity clubEntity) {
-        // TODO: Logik zur Registrierung, einspeichern in DB
 
         clubRepository.save(clubEntity);
         return true;
@@ -58,9 +57,10 @@ public class ClubService {
         return true;
     }
 
-    public boolean clubList(){
+    public List<ClubEntity> clubList(){
         List<ClubEntity> clubEntities = clubRepository.findAll();
 
-        return true;
+        return clubRepository.findAll();
     }
+
 }

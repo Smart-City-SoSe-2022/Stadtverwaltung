@@ -9,7 +9,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 public class LocalCreate implements MessageListener {
 
-  @RabbitListener(bindings = @QueueBinding(value = @Queue(value = "", durable = ""),
+  @RabbitListener(bindings = @QueueBinding(value = @Queue(value = "stadtverwaltung", durable = ""),
           exchange = @Exchange(value = "microservice.eventbus", type = "topic", durable = ""), key = "auth.create"
           )
           )

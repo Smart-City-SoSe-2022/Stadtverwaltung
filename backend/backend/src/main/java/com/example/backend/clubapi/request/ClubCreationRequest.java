@@ -10,14 +10,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class ClubCreationRequest {
+    private final String founderName;
     private final String clubName;
-    private final String founder;
+    private final int member;
+    private final String task;
+    private final String financing;
+    private final String description;
 }
-
-
-/*
-
-"clubname": "heyclub",
-"founder": "vadim"
-
-*/

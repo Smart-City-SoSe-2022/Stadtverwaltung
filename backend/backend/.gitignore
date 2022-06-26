@@ -34,3 +34,4 @@ build/
 
 ### Backend ###
 backend/src/main/resources/.env
+backend/src/main/java/com/example/backend/rabbitmq/config/ApplicationConfig.java

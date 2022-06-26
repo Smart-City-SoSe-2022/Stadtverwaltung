@@ -23,8 +23,8 @@ public class SchoolService {
     return true;
   }
 
-  public boolean schoolList(){
+  public List<SchoolEntity> schoolList(){
     List<SchoolEntity> schoolEntities = schoolRepository.findAll();
-    return true;
+    return schoolRepository.findAll();
   }
 }

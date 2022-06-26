@@ -1,6 +1,11 @@
 package com.example.backend.rabbitmq.service;
 
 
+import com.example.backend.customer.CustomerEntity;
+import com.example.backend.customer.CustomerRepository;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.rabbit.annotation.Exchange;
@@ -11,14 +16,27 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PortalNewAcc implements MessageListener {
-    @RabbitListener(bindings = @QueueBinding(value = @Queue(value = "",durable = ""),
+    private CustomerRepository customerRepository;
+
+    public PortalNewAcc(CustomerRepository customerRepository){
+        this.customerRepository = customerRepository;
+    }
+
+    @RabbitListener(bindings = @QueueBinding(value = @Queue(value = "stadtverwaltung",durable = ""),
             exchange = @Exchange(value = "microservice.eventbus",type = "topic",durable = ""),key = "portal.account.created"
     )
     )
     @Override
     public void onMessage(Message message) {
-        System.out.println(new String(message.getBody()));
+        String data = new String(message.getBody());
+        JSONParser parser = new JSONParser();
+        JSONObject neu;
+        try{
+            neu = (JSONObject) parser.parse(data);
+        } catch(ParseException e){
+            throw new RuntimeException(e);
+        }
+        customerRepository.saveAndFlush(new CustomerEntity(neu.getAsNumber("id").longValue()));
       }
-
 
 }

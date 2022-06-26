@@ -1,19 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Club from '../views/club/Club.vue'
 import School from '../views/school/School.vue'
-import Requirement from '../views/club/Requirement.vue'
-import ClubArea from '../views/club/ClubArea.vue'
-import ClubQueue from '../views/club/ClubQueue.vue'
 import SchoolArea from '../views/school/SchoolArea.vue'
 import SchoolQueue from '../views/school/SchoolQueue.vue'
 import OfficeHour from '../views/school/OfficeHour.vue'
+import Club from '../views/club/Club.vue'
+import Requirement from '../views/club/Requirement.vue'
+import ClubArea from '../views/club/ClubArea.vue'
+import ClubQueue from '../views/club/ClubQueue.vue'
+import Requests from '../views/Requests.vue'
+
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/anfragen',
+    name: 'anfragen',
+    component: Requests
   },
   {
     path: '/verein',
@@ -26,13 +33,13 @@ const routes = [
     component: Requirement
   },
   {
-    path: '/club-umgebung',
-    name: 'club-umgebung',
+    path: '/verein-umgebung',
+    name: 'verein-umgebung',
     component: ClubArea
   },
   {
-    path: '/warteliste-club',
-    name: 'warteliste-club',
+    path: '/warteliste-verein',
+    name: 'warteliste-verein',
     component: ClubQueue
   },
   {
@@ -51,8 +58,8 @@ const routes = [
     component: SchoolArea
   },
   {
-    path: '/warteschlange-schule',
-    name: 'warteschlange-schule',
+    path: '/warteliste-schule',
+    name: 'warteliste-schule',
     component: SchoolQueue
   }
 ]

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitMQListener implements MessageListener {
 
-    @RabbitListener(bindings = @QueueBinding(value = @Queue(value = "", durable =""),
+    @RabbitListener(bindings = @QueueBinding(value = @Queue(value = "stadtverwaltung", durable =""),
             exchange = @Exchange(value = "microservice.eventbus", type = "topic", durable = ""), key = "anonymous.info"
     )
     )
